@@ -1,6 +1,7 @@
 import os
-from selenium import webdriver
+
 import pytest
+from selenium import webdriver
 
 web_driver = None
 
@@ -15,6 +16,7 @@ desired_cap = {
     'name': 'Bstack-[Python] Sample Test'
 }
 
+# Determine target browser
 if os.getenv('BROWSERSTACK_KEY') is None:
     print('Non-CI test')
 
