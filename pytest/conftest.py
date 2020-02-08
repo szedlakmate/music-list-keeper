@@ -1,4 +1,6 @@
 import os
+import sys
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 import pytest
 from selenium import webdriver
@@ -21,6 +23,7 @@ if os.getenv('BROWSERSTACK_KEY') is None:
     print('Non-CI test')
 
     if FORCE_REMOTE_TESTING:
+        # noinspection PyUnresolvedReferences
         from pytest.secret import secrets
 
         command_executor = secrets.command_executor
