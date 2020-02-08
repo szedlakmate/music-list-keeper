@@ -1,7 +1,13 @@
 from selenium import webdriver
 
 import pytest
-from pytest.secret import secrets
+
+command_executor = ""
+try:
+    from pytest.secret import secrets
+    command_executor = secrets.command_executor
+finally:
+    command_executor = BROWSERSTACK_KEY
 
 desired_cap = {
     'browser': 'Chrome',
@@ -12,15 +18,14 @@ desired_cap = {
     'name': 'Bstack-[Python] Sample Test'
 }
 
-
-@pytest.fixture(scope="module")
-def driver():
-    web_driver = webdriver.Remote(
+web_driver = webdriver.Remote(
         command_executor=secrets.command_executor,
         desired_capabilities=desired_cap)
 
-    def fin():
-        print("close connection")
-        web_driver.quit()
 
-    return web_driver
+@pytest.fixture(scope="module")
+def driver():
+    """ Provides a webDriver for the tests through BrowserStack """
+    yield web_driver
+
+    web_driver.quit()
