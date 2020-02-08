@@ -1,16 +1,10 @@
 import time
 
-from selenium import webdriver
 
-
-def fetch_streamer(url, target_xpath, output_file_name):
+def fetch_streamer(driver, target_xpath, output_file_name):
     go_down = 15
     default_scroll_down_px = 10000
 
-    driver = webdriver.Chrome()
-    driver.get(url)
-    driver.implicitly_wait(3)
-    time.sleep(1)
     for loop_scroll in range(go_down):
         init_num_of_titles = len(driver.find_elements_by_xpath(target_xpath))
         driver.execute_script("window.scrollBy(0 ,%i)" % default_scroll_down_px)
