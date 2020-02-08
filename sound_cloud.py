@@ -1,8 +1,7 @@
 import time
 
-from selenium import webdriver
-
 from fetch_list import fetch_streamer
+from my_lists.generate_webdriver import get_driver
 from write_output import write_to_file
 
 soundcloud_target_xpath = '//*[@id="content"]//li//*[contains(@class, "trackItem__content")]'
@@ -16,11 +15,11 @@ def fetch_soundcloud(user, album):
     url = soundcloud_url(user, album)
     output_file_name = "soundcloud_%s_%s.txt" % (user, album)
 
-    driver = webdriver.Chrome()
+    driver = get_driver()
     driver.get(url)
-    driver.implicitly_wait(8)
-    time.sleep(2)
 
     titles = fetch_streamer(driver, soundcloud_target_xpath)
+
+    driver.quit()
 
     write_to_file(output_file_name, titles)
