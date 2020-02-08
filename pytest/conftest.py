@@ -1,17 +1,11 @@
 import os
-
 from selenium import webdriver
-
 import pytest
 
-command_executor = ""
+web_driver = None
 
-if os.getenv('BROWSERSTACK_KEY') is None:
-    command_executor = os.getenv('BROWSERSTACK_KEY')
-else:
-    from pytest.secret import secrets
-    command_executor = secrets.command_executor
-
+# BrowserStack config
+FORCE_REMOTE_TESTING = False
 desired_cap = {
     'browser': 'Chrome',
     'browser_version': '80.0 beta',
@@ -21,9 +15,26 @@ desired_cap = {
     'name': 'Bstack-[Python] Sample Test'
 }
 
-web_driver = webdriver.Remote(
-    command_executor=command_executor,
-    desired_capabilities=desired_cap)
+if os.getenv('BROWSERSTACK_KEY') is None:
+    print('Non-CI test')
+
+    if FORCE_REMOTE_TESTING:
+        from pytest.secret import secrets
+
+        command_executor = secrets.command_executor
+        web_driver = webdriver.Remote(
+            command_executor=command_executor,
+            desired_capabilities=desired_cap)
+    else:
+        web_driver = webdriver.Chrome()
+
+else:
+    print('CI test')
+    command_executor = os.getenv('BROWSERSTACK_KEY')
+
+    web_driver = webdriver.Remote(
+        command_executor=command_executor,
+        desired_capabilities=desired_cap)
 
 
 @pytest.fixture(scope="module")
@@ -31,4 +42,7 @@ def driver():
     """ Provides a webDriver for the tests through BrowserStack """
     yield web_driver
 
-    web_driver.quit()
+    try:
+        web_driver.quit()
+    finally:
+        print('Failed to close web_driver')
