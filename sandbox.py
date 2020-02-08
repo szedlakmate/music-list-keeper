@@ -10,4 +10,10 @@ from youtube import fetch_youtube
 # fetch_soundcloud(streaming_user, "liked")
 # fetch_soundcloud(streaming_user, "weird-stuff")
 
-fetch_youtube("PLtiS4u-DD2u8d-vaEacIxqMsLvUpH0vyc")
+roland_youtube = [
+    "FL7V-5I1nDCFkxNOW9_KBZtg",
+    "PLF0DA38DF2286ABBF"
+]
+
+fetch_youtube(roland_youtube[0])
+fetch_youtube(roland_youtube[1])
