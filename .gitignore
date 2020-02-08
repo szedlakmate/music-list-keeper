@@ -133,6 +133,3 @@ dmypy.json
 # Pycharm
 .idea/**/*.iml
 .idea/**/*.xml
-
-# Project config
-*.txt
