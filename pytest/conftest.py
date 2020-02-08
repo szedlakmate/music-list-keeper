@@ -21,6 +21,7 @@ if os.getenv('BROWSERSTACK_KEY') is None:
     print('Non-CI test')
 
     if FORCE_REMOTE_TESTING:
+        # noinspection PyUnresolvedReferences
         from pytest.secret import secrets
 
         command_executor = secrets.command_executor
