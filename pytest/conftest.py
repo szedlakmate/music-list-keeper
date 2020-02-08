@@ -1,13 +1,16 @@
+import os
+
 from selenium import webdriver
 
 import pytest
 
 command_executor = ""
-try:
+
+if os.getenv('BROWSERSTACK_KEY') is None:
+    command_executor = os.getenv('BROWSERSTACK_KEY')
+else:
     from pytest.secret import secrets
     command_executor = secrets.command_executor
-finally:
-    command_executor = BROWSERSTACK_KEY
 
 desired_cap = {
     'browser': 'Chrome',
@@ -19,8 +22,8 @@ desired_cap = {
 }
 
 web_driver = webdriver.Remote(
-        command_executor=secrets.command_executor,
-        desired_capabilities=desired_cap)
+    command_executor=command_executor,
+    desired_capabilities=desired_cap)
 
 
 @pytest.fixture(scope="module")
