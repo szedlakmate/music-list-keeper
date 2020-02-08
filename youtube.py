@@ -4,7 +4,7 @@ from selenium import webdriver
 
 from fetch_list import fetch_streamer
 
-
+# TODO: Add tests
 def fetch_youtube(album):
     youtube_target_xpath = '//ytd-playlist-video-renderer//*[@id="meta"]'
 
