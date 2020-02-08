@@ -4,6 +4,7 @@ import time
 def fetch_streamer(driver, target_xpath, output_file_name):
     go_down = 15
     default_scroll_down_px = 10000
+    output_dir = 'my_lists'
 
     for loop_scroll in range(go_down):
         init_num_of_titles = len(driver.find_elements_by_xpath(target_xpath))
@@ -17,7 +18,7 @@ def fetch_streamer(driver, target_xpath, output_file_name):
 
     titles = driver.find_elements_by_xpath(target_xpath)
 
-    with open(output_file_name, 'w') as result_file:
+    with open('%s/%s' % (output_dir, output_file_name), 'w') as result_file:
         print('\n\n\nOutput: %s\nNumber of found musics:%i\n\n' % (output_file_name, len(titles)))
         result_file.write('Number of found musics:%i\n\n' % len(titles))
 
