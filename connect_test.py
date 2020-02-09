@@ -1,4 +1,4 @@
-from fetch_list import fetch_streamer
+from tools import fetch_streamer
 from sound_cloud import soundcloud_target_xpath, soundcloud_url
 from youtube import youtube_url, youtube_target_xpath
 
