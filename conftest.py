@@ -5,8 +5,6 @@ from selenium import webdriver
 
 from tools import get_driver
 
-web_driver = None
-
 # BrowserStack config
 FORCE_REMOTE_TESTING = False
 desired_cap = {
@@ -18,34 +16,40 @@ desired_cap = {
     'name': 'Bstack-[Python] Sample Test'
 }
 
-# Determine target browser
-if os.getenv('BROWSERSTACK_KEY') is None:
-    print('Non-CI test')
 
-    if FORCE_REMOTE_TESTING:
-        # noinspection PyUnresolvedReferences
-        from pytest.secret import secrets
+def choose_browser():
+    # Determine target browser
+    if os.getenv('BROWSERSTACK_KEY') is None:
+        print('Non-CI test')
 
-        command_executor = secrets.command_executor
+        if FORCE_REMOTE_TESTING:
+            # noinspection PyUnresolvedReferences
+            from pytest.secret import secrets
+
+            command_executor = secrets.command_executor
+            web_driver = webdriver.Remote(
+                command_executor=command_executor,
+                desired_capabilities=desired_cap)
+            web_driver.implicitly_wait(8)
+        else:
+            web_driver = get_driver()
+
+    else:
+        print('CI test')
+        command_executor = os.getenv('BROWSERSTACK_KEY')
+
         web_driver = webdriver.Remote(
             command_executor=command_executor,
             desired_capabilities=desired_cap)
-        web_driver.implicitly_wait(8)
-    else:
-        web_driver = get_driver()
-
-else:
-    print('CI test')
-    command_executor = os.getenv('BROWSERSTACK_KEY')
-
-    web_driver = webdriver.Remote(
-        command_executor=command_executor,
-        desired_capabilities=desired_cap)
+    return web_driver
 
 
 @pytest.fixture(scope="session")
 def driver():
     """ Provides a webDriver for the tests through BrowserStack """
+
+    web_driver = choose_browser()
+
     yield web_driver
 
     try:
