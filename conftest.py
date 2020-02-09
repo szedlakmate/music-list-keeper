@@ -43,7 +43,7 @@ else:
         desired_capabilities=desired_cap)
 
 
-@pytest.fixture(scope="module", autouse=True)
+@pytest.fixture(scope="session")
 def driver():
     """ Provides a webDriver for the tests through BrowserStack """
     yield web_driver
