@@ -1,8 +1,4 @@
-import time
-
-from fetch_list import fetch_streamer
-from my_lists.generate_webdriver import get_driver
-from write_output import write_to_file
+from tools import fetch_streamer, get_driver, write_to_file
 
 soundcloud_target_xpath = '//*[@id="content"]//li//*[contains(@class, "trackItem__content")]'
 
