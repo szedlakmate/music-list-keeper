@@ -30,6 +30,7 @@ if os.getenv('BROWSERSTACK_KEY') is None:
         web_driver = webdriver.Remote(
             command_executor=command_executor,
             desired_capabilities=desired_cap)
+        web_driver.implicitly_wait(8)
     else:
         web_driver = get_driver()
 
