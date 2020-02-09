@@ -3,6 +3,8 @@ import os
 import pytest
 from selenium import webdriver
 
+from tools import get_driver
+
 web_driver = None
 
 # BrowserStack config
@@ -29,7 +31,7 @@ if os.getenv('BROWSERSTACK_KEY') is None:
             command_executor=command_executor,
             desired_capabilities=desired_cap)
     else:
-        web_driver = webdriver.Chrome()
+        web_driver = get_driver()
 
 else:
     print('CI test')
@@ -40,7 +42,7 @@ else:
         desired_capabilities=desired_cap)
 
 
-@pytest.fixture(scope="module")
+@pytest.fixture(scope="module", autouse=True)
 def driver():
     """ Provides a webDriver for the tests through BrowserStack """
     yield web_driver
