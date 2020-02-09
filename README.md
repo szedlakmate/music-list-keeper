@@ -3,7 +3,7 @@
 # music-list-keeper
 Web scraper saving music lists from SoundCloud and YouTube. 
 
-Save the name of your songs as __text files.__
+Save the name of your songs into __text files.__
 
 Make sure you don't loose your favorite songs again without being noticed ;)
 
@@ -11,8 +11,8 @@ Make sure you don't loose your favorite songs again without being noticed ;)
 In order to run the script, you will need:
 * Chrome installed
 * [ChromeDriver:](https://sites.google.com/a/chromium.org/chromedriver/downloads)
-Make sure that the downloaded version matches your local instance's version. Move it to PATH
-* python 3
+Make sure that the downloaded version matches your local instance's version. [Setup](https://chromedriver.chromium.org/getting-started) the driver
+* python3
 * python packages mentioned in `requirements.txt`
     * > `pip3 install -r requirements.txt`
 
