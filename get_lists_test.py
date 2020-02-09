@@ -27,10 +27,10 @@ class TestYouTube(object):
         print('Looking for %s' % expected_result)
         titles = fetch_streamer(driver, youtube_target_xpath)
         assert titles[0][0: len(expected_result)] == expected_result
-        assert len(titles) >= 8
+        assert len(titles) >= 9
 
 
-class TestSoundcloud(object):
+class TestSoundCloud(object):
     def test_connection_soundcloud(self, driver):
         print('\nGoing to Soundcloud')
         driver.get("https://soundcloud.com/")  # "SoundCloud – Listen to free music and podcasts on SoundCloud"

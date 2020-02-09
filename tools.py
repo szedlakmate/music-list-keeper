@@ -11,7 +11,7 @@ def write_to_file(output_file_name, titles):
     output_dir = 'my_lists'
 
     with open('%s/%s' % (output_dir, output_file_name), 'w') as result_file:
-        print('\n\n\nOutput: %s' % output_file_name)
+        print('Output: %s' % output_file_name)
         result_file.write('Number of found musics:%i\n\n' % len(titles))
 
         for title in titles:
@@ -51,6 +51,6 @@ def fetch_streamer(driver, target_xpath, wait_for_new_elements=1):
 
     time.sleep(1)
     title_elements = driver.find_elements_by_xpath(target_xpath)
-    print('Number of found musics:%i\n\n' % len(title_elements))
+    print('Number of found musics: %i\n' % len(title_elements))
 
     return list(map(get_text, title_elements))
