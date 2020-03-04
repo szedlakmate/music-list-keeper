@@ -8,8 +8,8 @@ from tools import get_driver
 # BrowserStack config
 FORCE_REMOTE_TESTING = False
 desired_cap = {
-    'browser': 'Chrome',
-    'browser_version': '80.0 beta',
+    'browser': 'IE',
+    'browser_version': '11.0',
     'os': 'Windows',
     'os_version': '10',
     'resolution': '2048x1536',
